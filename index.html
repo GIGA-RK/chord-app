@@ -22,11 +22,8 @@
       --shadow-soft:0 10px 24px rgba(0,0,0,0.20);
       --card-radius:18px;
     }
-
     *{ box-sizing:border-box; }
-    html,body{ margin:0; padding:0; }
-    html,body{ height:100%; }
-
+    html,body{ margin:0; padding:0; height:100%; }
     body{
       min-height:100vh;
       color:var(--text);
@@ -39,479 +36,90 @@
       text-rendering:optimizeLegibility;
       overflow:hidden;
     }
-
-    .noise{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.05;
-      background-image: radial-gradient(rgba(255,255,255,.5) 0.5px, transparent 0.7px);
-      background-size:10px 10px;
-      mix-blend-mode:soft-light;
-    }
-
-    .app{
-      position:relative;
-      height:100dvh;
-      width:100%;
-      padding:8px;
-    }
-
-    .main-panel{
-      position:relative;
-      height:100%;
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:20px;
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      min-width:0;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      padding:10px 12px 8px;
-      border-bottom:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      flex:0 0 auto;
-    }
-
-    .title-wrap{
-      min-width:0;
-    }
-
-    .title{
-      margin:0;
-      font-size:clamp(20px, 4.2vw, 36px);
-      line-height:1.05;
-      letter-spacing:-0.03em;
-      font-weight:800;
-    }
+    .noise{ position:fixed; inset:0; pointer-events:none; opacity:.05; background-image:radial-gradient(rgba(255,255,255,.5) 0.5px, transparent 0.7px); background-size:10px 10px; mix-blend-mode:soft-light; }
+    .app{ position:relative; height:100dvh; width:100%; padding:8px; }
+    .main-panel{ position:relative; height:100%; background:var(--panel); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; min-width:0; }
+    .topbar{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; padding:10px 12px 8px; border-bottom:1px solid var(--line); background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); flex:0 0 auto; }
+    .title-wrap{ min-width:0; }
+    .title{ margin:0; font-size:clamp(20px, 4.2vw, 36px); line-height:1.05; letter-spacing:-0.03em; font-weight:800; }
     .title .slash{ color:var(--warning); }
-
-    .subtitle{
-      color:var(--muted);
-      font-size:12px;
-      margin-top:6px;
-      line-height:1.45;
-    }
-
-    .top-actions{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex:0 0 auto;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 9px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      color:var(--muted);
-      font-size:10px;
-      font-weight:800;
-      white-space:nowrap;
-    }
+    .subtitle{ color:var(--muted); font-size:12px; margin-top:6px; line-height:1.45; }
+    .top-actions{ display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 9px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--muted); font-size:10px; font-weight:800; white-space:nowrap; }
     .badge strong{ color:var(--text); font-size:11px; }
-
-    .toolbar-btn{
-      appearance:none;
-      -webkit-appearance:none;
-      border:none;
-      cursor:pointer;
-      user-select:none;
-      -webkit-tap-highlight-color:transparent;
-      min-height:34px;
-      padding:6px 12px;
-      border-radius:10px;
-      font-size:12px;
-      font-weight:800;
-      transition:transform .12s ease, border-color .12s ease, background .12s ease, color .12s ease, box-shadow .12s ease;
-    }
-    .toolbar-btn:active{ transform:scale(.98); }
-    .toolbar-primary{
-      color:#051018;
-      background:linear-gradient(135deg, var(--accent3), var(--accent));
-      box-shadow:0 10px 18px rgba(78,241,192,.14);
-    }
-    .toolbar-secondary{
-      color:var(--muted);
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-    }
-
-    .result-body{
-      padding:10px;
-      flex:1 1 auto;
-      min-height:0;
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
-      overscroll-behavior:contain;
-    }
-
-    .group-title{
-      margin:0 0 10px;
-      color:var(--muted);
-      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size:10px;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-
-    .diagram-grid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:12px;
-      align-items:stretch;
-    }
-
-    .diagram-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.018));
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:10px;
-      box-shadow:var(--shadow-soft);
-      display:flex;
-      flex-direction:column;
-      min-width:0;
-      min-height:280px;
-    }
-
-    .diagram-header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:8px;
-      margin-bottom:6px;
-    }
-    .diagram-title{
-      font-size:12px;
-      font-weight:800;
-      color:var(--text);
-      line-height:1.2;
-    }
-    .diagram-sub{
-      font-size:10px;
-      color:var(--muted2);
-      margin-top:3px;
-      line-height:1.3;
-    }
-    .fret-pill{
-      flex:0 0 auto;
-      padding:5px 8px;
-      border-radius:999px;
-      background:rgba(255,255,255,.04);
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:10px;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-
-    .diagram-svg-wrap{
-      width:100%;
-      min-height:150px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-top:2px;
-    }
-    .diagram-svg-wrap svg{
-      display:block;
-      width:100%;
-      max-width:145px;
-      height:auto;
-      overflow:visible;
-      flex:0 0 auto;
-    }
-
-    .voicing-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      margin-top:auto;
-      padding-top:6px;
-    }
-    .meta-pill{
-      padding:5px 8px;
-      border-radius:999px;
-      background:rgba(255,255,255,.035);
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:10px;
-      font-weight:700;
-      max-width:100%;
-      overflow-wrap:anywhere;
-    }
-
-    .empty{
-      display:grid;
-      place-items:center;
-      min-height:240px;
-      text-align:center;
-      padding:18px;
-    }
-    .empty .orb{
-      width:46px;
-      height:46px;
-      border-radius:999px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 30%),
-        linear-gradient(135deg, rgba(103,212,255,.35), rgba(124,140,255,.28), rgba(78,241,192,.20));
-      box-shadow:0 0 50px rgba(103,212,255,.18);
-      margin:0 auto 12px;
-    }
+    .toolbar-btn,.note-btn,.chip,.mini-chip,.action-btn,.sheet-close{ appearance:none; -webkit-appearance:none; border:none; cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent; transition:transform .12s ease, border-color .12s ease, background .12s ease, color .12s ease, box-shadow .12s ease; }
+    .toolbar-btn:active,.note-btn:active,.chip:active,.mini-chip:active,.action-btn:active,.sheet-close:active{ transform:scale(.98); }
+    .toolbar-btn{ min-height:38px; padding:8px 14px; border-radius:11px; font-size:13px; font-weight:800; }
+    .toolbar-primary{ color:#051018; background:linear-gradient(135deg,var(--accent3),var(--accent)); box-shadow:0 10px 18px rgba(78,241,192,.14); }
+    .toolbar-secondary{ color:var(--muted); border:1px solid var(--line); background:rgba(255,255,255,.03); }
+    .result-body{ padding:10px; flex:1 1 auto; min-height:0; overflow:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
+    .group-title{ margin:0 0 10px; color:var(--muted); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .diagram-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; align-items:stretch; }
+    .diagram-card{ background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.018)); border:1px solid var(--line); border-radius:16px; padding:10px; box-shadow:var(--shadow-soft); display:flex; flex-direction:column; min-width:0; min-height:280px; }
+    .diagram-header{ display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:6px; }
+    .diagram-title{ font-size:12px; font-weight:800; color:var(--text); line-height:1.2; }
+    .diagram-sub{ font-size:10px; color:var(--muted2); margin-top:3px; line-height:1.3; }
+    .fret-pill{ flex:0 0 auto; padding:5px 8px; border-radius:999px; background:rgba(255,255,255,.04); border:1px solid var(--line); color:var(--muted); font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .diagram-svg-wrap{ width:100%; min-height:150px; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+    .diagram-svg-wrap svg{ display:block; width:100%; max-width:145px; height:auto; overflow:visible; flex:0 0 auto; }
+    .voicing-meta{ display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:6px; }
+    .meta-pill{ padding:5px 8px; border-radius:999px; background:rgba(255,255,255,.035); border:1px solid var(--line); color:var(--muted); font-size:10px; font-weight:700; max-width:100%; overflow-wrap:anywhere; }
+    .empty{ display:grid; place-items:center; min-height:240px; text-align:center; padding:18px; }
+    .empty .orb{ width:46px; height:46px; border-radius:999px; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 30%),linear-gradient(135deg, rgba(103,212,255,.35), rgba(124,140,255,.28), rgba(78,241,192,.20)); box-shadow:0 0 50px rgba(103,212,255,.18); margin:0 auto 12px; }
     .empty h3{ margin:0 0 7px; font-size:18px; letter-spacing:-0.02em; }
     .empty p{ max-width:480px; margin:0 auto; color:var(--muted); line-height:1.6; font-size:12px; }
 
-    .overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(2,7,15,0.58);
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .18s ease;
-      z-index:20;
-    }
-    .overlay.open{
-      opacity:1;
-      pointer-events:auto;
-    }
+    .overlay{ position:fixed; inset:0; background:rgba(2,7,15,0.58); opacity:0; pointer-events:none; transition:opacity .18s ease; z-index:20; }
+    .overlay.open{ opacity:1; pointer-events:auto; }
+    .picker-sheet{ position:fixed; left:50%; transform:translateX(-50%) translateY(110%); bottom:8px; width:min(92vw,430px); max-height:78dvh; background:var(--panel-strong); border:1px solid var(--line); border-radius:22px; box-shadow:0 24px 50px rgba(0,0,0,.38); overflow:hidden; display:flex; flex-direction:column; z-index:30; transition:transform .22s ease; }
+    .picker-sheet.open{ transform:translateX(-50%) translateY(0); }
+    .desktop-selector{ display:block; position:fixed; top:8px; right:8px; bottom:8px; width:min(340px,30vw); background:var(--panel-strong); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); overflow:hidden; z-index:25; }
+    .desktop-selector .controls-scroll{ height:calc(100% - 49px); }
+    .desktop-selector .sheet-close{ display:none; }
+    body.desktop-open .app{ padding-right:min(356px, calc(30vw + 16px)); }
+    body.desktop-open .overlay{ display:none; }
 
-    .picker-sheet{
-      position:fixed;
-      left:50%;
-      transform:translateX(-50%) translateY(110%);
-      bottom:8px;
-      width:min(92vw, 430px);
-      max-height:78dvh;
-      background:var(--panel-strong);
-      border:1px solid var(--line);
-      border-radius:22px;
-      box-shadow:0 24px 50px rgba(0,0,0,.38);
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      z-index:30;
-      transition:transform .22s ease;
-    }
-    .picker-sheet.open{
-      transform:translateX(-50%) translateY(0);
-    }
-
-    .sheet-head{
-      padding:10px 12px 8px;
-      border-bottom:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-      flex:0 0 auto;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-    }
-    .sheet-title{
-      font-size:13px;
-      font-weight:800;
-      letter-spacing:.03em;
-    }
-    .sheet-close{
-      appearance:none;
-      -webkit-appearance:none;
-      border:none;
-      cursor:pointer;
-      width:30px;
-      height:30px;
-      border-radius:999px;
-      background:rgba(255,255,255,.04);
-      border:1px solid var(--line);
-      color:var(--muted);
-      font-size:16px;
-      line-height:1;
-    }
-
-    .controls-scroll{
-      padding:12px;
-      overflow:auto;
-      min-height:0;
-      -webkit-overflow-scrolling:touch;
-      overscroll-behavior:contain;
-    }
-
+    .sheet-head{ padding:10px 12px 8px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:8px; flex:0 0 auto; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); }
+    .sheet-title{ font-size:13px; font-weight:800; letter-spacing:.03em; }
+    .sheet-close{ width:30px; height:30px; border-radius:999px; background:rgba(255,255,255,.04); border:1px solid var(--line); color:var(--muted); font-size:16px; line-height:1; }
+    .controls-scroll{ padding:12px; overflow:auto; min-height:0; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; }
     .section{ margin-bottom:12px; }
     .section:last-child{ margin-bottom:0; }
-    .section-label{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      margin:0 0 8px;
-      color:var(--muted);
-      font-size:11px;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-    .section-label::after{
-      content:"";
-      flex:1;
-      height:1px;
-      background:linear-gradient(90deg, var(--line-strong), transparent);
-    }
+    .section-label{ display:flex; align-items:center; gap:8px; margin:0 0 8px; color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .section-label::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--line-strong),transparent); }
+    .note-grid,.slash-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+    .quality-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+    .note-btn{ min-height:40px; border-radius:11px; border:1px solid var(--line); background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)); color:var(--text); font-weight:700; font-size:14px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.05); }
+    .note-btn.selected{ background:linear-gradient(135deg,rgba(103,212,255,.25),rgba(124,140,255,.22)); border-color:rgba(103,212,255,.55); box-shadow:0 0 0 1px rgba(103,212,255,.25) inset, 0 8px 20px rgba(103,212,255,.12); color:#fff; }
+    .chip{ min-height:40px; padding:8px 10px; border-radius:11px; border:1px solid var(--line); background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)); color:var(--text); font-size:12px; font-weight:700; text-align:center; line-height:1.2; }
+    .chip.selected{ border-color:rgba(78,241,192,.48); background:linear-gradient(135deg,rgba(78,241,192,.18),rgba(103,212,255,.12)); box-shadow:0 8px 20px rgba(78,241,192,.08); }
+    .mini-chip{ min-height:36px; padding:6px 6px; border-radius:10px; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--muted); font-size:11px; font-weight:800; }
+    .mini-chip.selected{ background:linear-gradient(135deg,rgba(255,189,102,.18),rgba(124,140,255,.16)); border-color:rgba(255,189,102,.45); color:#fff; }
+    .action-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .action-btn{ min-height:32px; padding:5px 11px; border-radius:10px; font-size:11px; font-weight:800; }
+    .action-secondary{ color:var(--muted); border:1px solid var(--line); background:rgba(255,255,255,.03); }
+    .fab{ position:fixed; right:14px; bottom:14px; z-index:15; display:none; }
 
-    .note-grid, .slash-row{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:8px;
-    }
-    .quality-grid{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:8px;
-    }
-
-    .note-btn,.chip,.mini-chip,.action-btn{
-      appearance:none;
-      -webkit-appearance:none;
-      border:none;
-      cursor:pointer;
-      user-select:none;
-      -webkit-tap-highlight-color:transparent;
-      transition:transform .12s ease, border-color .12s ease, background .12s ease, color .12s ease, box-shadow .12s ease;
-    }
-    .note-btn:active,.chip:active,.mini-chip:active,.action-btn:active{ transform:scale(.98); }
-
-    .note-btn{
-      min-height:40px;
-      border-radius:11px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      color:var(--text);
-      font-weight:700;
-      font-size:14px;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
-    }
-    .note-btn.selected{
-      background:linear-gradient(135deg, rgba(103,212,255,.25), rgba(124,140,255,.22));
-      border-color:rgba(103,212,255,.55);
-      box-shadow:0 0 0 1px rgba(103,212,255,.25) inset, 0 8px 20px rgba(103,212,255,.12);
-      color:#fff;
-    }
-
-    .chip{
-      min-height:40px;
-      padding:8px 10px;
-      border-radius:11px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      color:var(--text);
-      font-size:12px;
-      font-weight:700;
-      text-align:center;
-      line-height:1.2;
-    }
-    .chip.selected{
-      border-color:rgba(78,241,192,.48);
-      background:linear-gradient(135deg, rgba(78,241,192,.18), rgba(103,212,255,.12));
-      box-shadow:0 8px 20px rgba(78,241,192,.08);
-    }
-
-    .mini-chip{
-      min-height:36px;
-      padding:6px 6px;
-      border-radius:10px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-size:11px;
-      font-weight:800;
-    }
-    .mini-chip.selected{
-      background:linear-gradient(135deg, rgba(255,189,102,.18), rgba(124,140,255,.16));
-      border-color:rgba(255,189,102,.45);
-      color:#fff;
-    }
-
-    .action-row{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:8px;
-    }
-    .action-btn{
-      min-height:32px;
-      padding:5px 11px;
-      border-radius:10px;
-      font-size:11px;
-      font-weight:800;
-    }
-    .action-secondary{
-      color:var(--muted);
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-    }
-
-    .fab{
-      position:fixed;
-      right:14px;
-      bottom:14px;
-      z-index:15;
-      display:none;
-    }
-
-    @media (max-width: 900px){
-      .diagram-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-    }
-
+    @media (max-width: 900px){ .diagram-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media (max-width: 640px){
       .app{ padding:8px; }
       .topbar{ padding:10px 10px 8px; }
       .title{ font-size:20px; }
       .subtitle{ font-size:11px; margin-top:5px; }
       .badge{ font-size:9px; padding:5px 7px; }
-      .toolbar-btn{ min-height:30px; padding:4px 10px; font-size:11px; }
+      .toolbar-btn{ min-height:42px; padding:8px 15px; font-size:13px; }
       .toolbar-secondary.inline-reset{ display:none; }
-
       .result-body{ padding:8px; }
-      .diagram-grid{
-        grid-template-columns:repeat(2, minmax(0, 1fr));
-        gap:8px;
-      }
-      .diagram-card{
-        min-height:180px;
-        padding:8px;
-        border-radius:14px;
-      }
+      .diagram-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+      .diagram-card{ min-height:180px; padding:8px; border-radius:14px; }
       .diagram-title{ font-size:11px; }
       .diagram-sub{ font-size:9px; }
       .fret-pill{ font-size:9px; padding:4px 7px; }
       .diagram-svg-wrap{ min-height:96px; }
       .diagram-svg-wrap svg{ max-width:102px; }
       .meta-pill{ font-size:9px; padding:4px 6px; }
-
-      .picker-sheet{
-        left:8px;
-        right:8px;
-        width:auto;
-        max-height:72dvh;
-        bottom:8px;
-        transform:translateY(110%);
-        border-radius:20px;
-      }
-      .picker-sheet.open{
-        transform:translateY(0);
-      }
+      .picker-sheet{ left:8px; right:8px; width:auto; max-height:72dvh; bottom:8px; transform:translateY(110%); border-radius:20px; }
+      .picker-sheet.open{ transform:translateY(0); }
       .sheet-head{ padding:10px 10px 8px; }
       .controls-scroll{ padding:10px; }
       .section{ margin-bottom:10px; }
@@ -522,16 +130,13 @@
       .mini-chip{ min-height:32px; font-size:10px; padding:5px 4px; }
       .action-btn{ min-height:30px; padding:4px 10px; font-size:11px; }
       .fab{ display:block; }
+      .desktop-selector{ display:none !important; }
     }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ transition:none !important; scroll-behavior:auto !important; }
-    }
+    @media (prefers-reduced-motion: reduce){ *{ transition:none !important; scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
   <div class="noise"></div>
-
   <div class="app">
     <section class="main-panel">
       <div class="topbar">
@@ -545,54 +150,26 @@
           <button class="toolbar-btn toolbar-secondary inline-reset" id="resetBtnTop" type="button">Reset</button>
         </div>
       </div>
-
       <div class="result-body" id="resultBody">
-        <div class="empty">
-          <div>
-            <div class="orb"></div>
-            <h3>Ready</h3>
-            <p>Select a root and chord type to show voicings.</p>
-          </div>
-        </div>
+        <div class="empty"><div><div class="orb"></div><h3>Ready</h3><p>Open the selector and choose a root and chord type.</p></div></div>
       </div>
     </section>
-
     <button class="toolbar-btn toolbar-primary fab" id="fabOpenBtn" type="button">Select</button>
-
     <div class="overlay" id="overlay"></div>
 
     <aside class="picker-sheet" id="pickerSheet" aria-hidden="true">
-      <div class="sheet-head">
-        <div class="sheet-title">Chord Selector</div>
-        <button class="sheet-close" id="closePickerBtn" type="button" aria-label="Close">×</button>
-      </div>
-      <div class="controls-scroll" id="controlsScroll">
-        <section class="section">
-          <p class="section-label">Root</p>
-          <div class="note-grid" id="rootGrid"></div>
-        </section>
+      <div class="sheet-head"><div class="sheet-title">Chord Selector</div><button class="sheet-close" id="closePickerBtn" type="button" aria-label="Close">×</button></div>
+      <div class="controls-scroll" id="controlsScroll"></div>
+    </aside>
 
-        <section class="section">
-          <p class="section-label">Code Type</p>
-          <div class="quality-grid" id="qualityGrid"></div>
-        </section>
-
-        <section class="section">
-          <p class="section-label">Bass</p>
-          <div class="slash-row" id="bassGrid"></div>
-        </section>
-
-        <div class="action-row">
-          <button class="action-btn action-secondary" id="resetBtnSheet" type="button">Reset</button>
-        </div>
-      </div>
+    <aside class="desktop-selector" id="desktopSelector" aria-hidden="false">
+      <div class="sheet-head"><div class="sheet-title">Chord Selector</div></div>
+      <div class="controls-scroll" id="controlsScrollDesktop"></div>
     </aside>
   </div>
-
   <script>
     const NOTE_NAMES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
     const STRING_PC = [4, 9, 2, 7, 11, 4];
-
     const QUALITIES = [
       {key:'maj',  suffix:'',     label:'Major', intervals:[0,4,7]},
       {key:'min',  suffix:'m',    label:'Minor', intervals:[0,3,7]},
@@ -609,443 +186,85 @@
       {key:'sus2', suffix:'sus2', label:'sus2',  intervals:[0,2,7]},
     ];
     const QUALITY_BY_KEY = Object.fromEntries(QUALITIES.map(q => [q.key, q]));
-
-    function chordKey(rootPC, qualityKey){
-      return NOTE_NAMES[rootPC] + '_' + qualityKey;
-    }
-
     const OPEN_CHORDS = {
-      'C_maj':[null,3,2,0,1,0], 'D_maj':[null,null,0,2,3,2], 'E_maj':[0,2,2,1,0,0],
-      'G_maj':[3,2,0,0,0,3], 'A_maj':[null,0,2,2,2,0],
+      'C_maj':[null,3,2,0,1,0], 'D_maj':[null,null,0,2,3,2], 'E_maj':[0,2,2,1,0,0], 'G_maj':[3,2,0,0,0,3], 'A_maj':[null,0,2,2,2,0],
       'A_min':[null,0,2,2,1,0], 'D_min':[null,null,0,2,3,1], 'E_min':[0,2,2,0,0,0],
-      'A_7':[null,0,2,0,2,0], 'C_7':[null,3,2,3,1,0], 'D_7':[null,null,0,2,1,2],
-      'E_7':[0,2,0,1,0,0], 'G_7':[3,2,0,0,0,1],
+      'A_7':[null,0,2,0,2,0], 'C_7':[null,3,2,3,1,0], 'D_7':[null,null,0,2,1,2], 'E_7':[0,2,0,1,0,0], 'G_7':[3,2,0,0,0,1],
       'A_m7':[null,0,2,0,1,0], 'D_m7':[null,null,0,2,1,1], 'E_m7':[0,2,0,0,0,0],
-      'C_maj7':[null,3,2,0,0,0], 'D_maj7':[null,null,0,2,2,2], 'E_maj7':[0,2,1,1,0,0],
-      'G_maj7':[3,2,0,0,0,2], 'A_maj7':[null,0,2,1,2,0],
-      'C_maj_slash_E':[0,3,2,0,1,0], 'D_maj_slash_F#':[2,null,0,2,3,2],
-      'G_maj_slash_B':[null,2,0,0,0,3], 'C_maj_slash_G':[3,3,2,0,1,0],
-      'D_min_slash_F':[1,null,0,2,3,1], 'A_min_slash_C':[null,3,2,2,1,0],
-      'F_maj_slash_C':[null,3,3,2,1,1], 'G_7_slash_B':[null,2,0,0,0,1],
+      'C_maj7':[null,3,2,0,0,0], 'D_maj7':[null,null,0,2,2,2], 'E_maj7':[0,2,1,1,0,0], 'G_maj7':[3,2,0,0,0,2], 'A_maj7':[null,0,2,1,2,0],
+      'C_maj_slash_E':[0,3,2,0,1,0], 'D_maj_slash_F#':[2,null,0,2,3,2], 'G_maj_slash_B':[null,2,0,0,0,3], 'C_maj_slash_G':[3,3,2,0,1,0],
+      'D_min_slash_F':[1,null,0,2,3,1], 'A_min_slash_C':[null,3,2,2,1,0], 'F_maj_slash_C':[null,3,3,2,1,1], 'G_7_slash_B':[null,2,0,0,0,1],
     };
 
+    function chordKey(rootPC, qualityKey){ return NOTE_NAMES[rootPC] + '_' + qualityKey; }
     function getPitchClassOnString(stringIdx, fret){ return (STRING_PC[stringIdx] + fret) % 12; }
-    function getLowestSoundingPC(shape){
-      for (let i=0; i<shape.frets.length; i++){
-        const f = shape.frets[i];
-        if (f !== null) return getPitchClassOnString(i, f);
-      }
-      return null;
-    }
-    function getPitchClassesInShape(shape){
-      const pcs = [];
-      shape.frets.forEach((f, i) => { if (f !== null) pcs.push(getPitchClassOnString(i, f)); });
-      return pcs;
-    }
-    function uniqueKeyFromFrets(frets){ return frets.map(v => v === null ? 'x' : String(v)).join('-'); }
-    function hasChordTones(shape, requiredPCs, minimumCount = 3){
-      const pcs = new Set(getPitchClassesInShape(shape));
-      const found = requiredPCs.filter(pc => pcs.has(pc));
-      return found.length >= Math.min(requiredPCs.length, minimumCount);
-    }
+    function getLowestSoundingPC(shape){ for (let i=0; i<shape.frets.length; i++){ const f = shape.frets[i]; if (f !== null) return getPitchClassOnString(i, f); } return null; }
+    function getPitchClassesInShape(shape){ const pcs=[]; shape.frets.forEach((f,i)=>{ if(f!==null) pcs.push(getPitchClassOnString(i,f)); }); return pcs; }
+    function uniqueKeyFromFrets(frets){ return frets.map(v => v===null ? 'x' : String(v)).join('-'); }
+    function hasChordTones(shape, requiredPCs, minimumCount=3){ const pcs=new Set(getPitchClassesInShape(shape)); const found=requiredPCs.filter(pc=>pcs.has(pc)); return found.length>=Math.min(requiredPCs.length, minimumCount); }
+    function buildBarreShape(rootPC, intervals, shapeType, span=4){ const rootStringIdx=shapeType==='E'?0:1; const R=((rootPC-STRING_PC[rootStringIdx])%12+12)%12; const chordTones=new Set(intervals.map(iv=>(rootPC+iv)%12)); const frets=new Array(6).fill(null); frets[rootStringIdx]=R; for(let s=0;s<6;s++){ if(s===rootStringIdx) continue; if(shapeType==='A'&&s===0) continue; let best=null; for(let f=R;f<=R+span;f++){ const pc=(STRING_PC[s]+f)%12; if(chordTones.has(pc)){ best=f; break; } } frets[s]=best; } return {frets, baseFret:R, kind:'barre', label:shapeType==='E'?'E-shape':'A-shape'}; }
+    function possibleFretsForPCOnString(stringIdx, pc, maxFret=12){ const out=[]; for(let f=0; f<=maxFret; f++) if((STRING_PC[stringIdx]+f)%12===pc) out.push(f); return out; }
+    function chooseBestFretOnString(stringIdx, chordTones, requiredMissing, minF, maxF){ const candidates=[]; for(let f=minF; f<=maxF; f++){ const pc=(STRING_PC[stringIdx]+f)%12; if(chordTones.has(pc)) candidates.push({f,pc}); } if(!candidates.length) return null; const preferred=candidates.find(c=>requiredMissing.has(c.pc)); return preferred ? preferred.f : candidates[0].f; }
+    function generateSlashVoicings(rootPC, intervals, bassPC){ const chordTones=new Set(intervals.map(iv=>(rootPC+iv)%12)); const requiredPCs=[...chordTones]; const results=[]; const seen=new Set(); const bassStrings=[0,1,2]; for(const bassStringIdx of bassStrings){ const bassFrets=possibleFretsForPCOnString(bassStringIdx,bassPC,12); for(const bassFret of bassFrets){ const frets=new Array(6).fill(null); for(let s=0;s<bassStringIdx;s++) frets[s]=null; frets[bassStringIdx]=bassFret; const baseFret=bassFret===0?0:bassFret; const minF=bassFret===0?0:bassFret; const maxF=bassFret===0?4:bassFret+4; const present=new Set([bassPC]); for(let s=bassStringIdx+1;s<6;s++){ const missing=new Set(requiredPCs.filter(pc=>!present.has(pc))); const chosen=chooseBestFretOnString(s,chordTones,missing,minF,maxF); frets[s]=chosen; if(chosen!==null) present.add((STRING_PC[s]+chosen)%12); } const shape={frets, baseFret, kind:'slash', label:'Slash Voicing', bassStringIdx}; const lowest=getLowestSoundingPC(shape); if(lowest!==bassPC) continue; if(!hasChordTones(shape, requiredPCs, intervals.length>=4?4:3)) continue; const key=uniqueKeyFromFrets(frets); if(!seen.has(key)){ seen.add(key); results.push(shape); } } } return results; }
+    function findNamedOpenSlash(rootPC, qualityKey, bassPC){ const rootName=NOTE_NAMES[rootPC]; const qualityWord=qualityKey==='maj'?'maj':qualityKey==='min'?'min':qualityKey; const bassName=NOTE_NAMES[bassPC]; return OPEN_CHORDS[`${rootName}_${qualityWord}_slash_${bassName}`] || null; }
+    function getShapesFor(rootPC, qualityKey, bassPC=null){ const q=QUALITY_BY_KEY[qualityKey]; const shapes=[]; const openKey=chordKey(rootPC, qualityKey==='maj'?'maj':qualityKey); if(bassPC===null && OPEN_CHORDS[openKey]) shapes.push({label:'Open', frets:OPEN_CHORDS[openKey], baseFret:0, kind:'open'}); if(bassPC!==null){ const slashOpen=findNamedOpenSlash(rootPC, qualityKey, bassPC); if(slashOpen) shapes.push({label:'Slash Open', frets:slashOpen, baseFret:0, kind:'slash-open'}); } const eShape=buildBarreShape(rootPC,q.intervals,'E'); const aShape=buildBarreShape(rootPC,q.intervals,'A'); [eShape,aShape].forEach(shape=>{ const lowest=getLowestSoundingPC(shape); if(bassPC===null || lowest===bassPC){ shapes.push({...shape, label:shape.label==='E-shape' ? (shape.baseFret===0?'Open / E':'E-form') : (shape.baseFret===0?'Open / A':'A-form')}); }}); if(bassPC!==null){ generateSlashVoicings(rootPC,q.intervals,bassPC).forEach(s=>shapes.push({...s, label:s.baseFret===0?'Slash Open':'Slash'})); } const filtered=bassPC===null ? shapes : shapes.filter(s=>getLowestSoundingPC(s)===bassPC); const deduped=[]; const seen=new Set(); for(const s of filtered){ const key=uniqueKeyFromFrets(s.frets); if(!seen.has(key)){ seen.add(key); deduped.push(s); } } deduped.sort((a,b)=>{ const aMuted=a.frets.filter(v=>v===null).length; const bMuted=b.frets.filter(v=>v===null).length; if(a.baseFret!==b.baseFret) return a.baseFret-b.baseFret; return aMuted-bMuted; }); return deduped.slice(0,12); }
+    function renderDiagramSVG(shape){ const W=150,H=184,left=22,right=W-16,top=34,bottom=H-18,nStrings=6,nFrets=5; const stepX=(right-left)/(nStrings-1), stepY=(bottom-top)/nFrets, baseFret=shape.baseFret||0, showNut=baseFret===0; const gradId1='boardGrad_'+Math.random().toString(36).slice(2,10), gradId2='markGrad_'+Math.random().toString(36).slice(2,10); let svg=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">`; svg += `<defs><linearGradient id="${gradId1}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#131d2d"/><stop offset="100%" stop-color="#0b1017"/></linearGradient><linearGradient id="${gradId2}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7cf5ff"/><stop offset="100%" stop-color="#4ef1c0"/></linearGradient></defs>`; svg += `<rect x="${left-8}" y="${top-4}" width="${right-left+16}" height="${bottom-top+8}" rx="10" fill="url(#${gradId1})" stroke="rgba(255,255,255,0.08)"/>`; [3,5,7,9,12].forEach(()=>{}); for(let i=1;i<=nFrets;i++){ const actual=baseFret===0?i:baseFret+i-1; if([3,5,7,9,12].includes(actual)){ const cy=top+stepY*(i-.5); svg += `<circle cx="${(left+right)/2}" cy="${cy}" r="2" fill="rgba(255,255,255,0.10)"/>`; } } for(let i=0;i<=nFrets;i++){ const y=top+stepY*i; const strokeW=(i===0&&showNut)?4:1.15; svg += `<line x1="${left}" y1="${y}" x2="${right}" y2="${y}" stroke="rgba(236,243,255,0.92)" stroke-width="${strokeW}" opacity="${i===0?1:.85}"/>`; } for(let s=0;s<nStrings;s++){ const x=left+stepX*s; svg += `<line x1="${x}" y1="${top}" x2="${x}" y2="${bottom}" stroke="rgba(236,243,255,0.82)" stroke-width="1.1"/>`; } if(!showNut) svg += `<text x="${left-8}" y="${top+stepY*.75}" fill="#9db0ca" font-family="monospace" font-weight="600" font-size="9" text-anchor="end">${baseFret}f</text>`; if(baseFret!==0){ const stringsAtBase=shape.frets.map((f,i)=>f===baseFret?i:-1).filter(v=>v>=0); if(stringsAtBase.length>=2){ const x1=left+stepX*Math.min(...stringsAtBase), x2=left+stepX*Math.max(...stringsAtBase), cy=top+stepY*.5; svg += `<rect x="${x1-6}" y="${cy-6}" width="${x2-x1+12}" height="12" rx="6" fill="rgba(124,140,255,0.58)" stroke="rgba(255,255,255,0.12)"/>`; } } shape.frets.forEach((f,s)=>{ const x=left+stepX*s; if(f===null){ svg += `<text x="${x}" y="${top-10}" fill="#ff8ca3" font-family="monospace" font-size="10" font-weight="700" text-anchor="middle">×</text>`; return; } if(showNut&&f===0){ svg += `<circle cx="${x}" cy="${top-9}" r="4.1" fill="none" stroke="rgba(236,243,255,0.95)" stroke-width="1.55"/>`; return; } const row=showNut?f:(f-baseFret+1); if(row<1||row>nFrets) return; const cy=top+stepY*(row-.5); svg += `<circle cx="${x}" cy="${cy}" r="5.8" fill="url(#${gradId2})" stroke="rgba(255,255,255,0.16)" stroke-width="1.0"/>`; }); svg += `</svg>`; return svg; }
+    function parseShapeInfo(shape,bassPC){ const pcs=[...new Set(getPitchClassesInShape(shape))].map(pc=>NOTE_NAMES[pc]).join(' / '); const bassName=bassPC!==null?NOTE_NAMES[bassPC]:NOTE_NAMES[getLowestSoundingPC(shape)]; return {fretText:shape.baseFret===0?'Open':`${shape.baseFret}fr`, tones:pcs, bass:bassName}; }
 
-    function buildBarreShape(rootPC, intervals, shapeType, span = 4){
-      const rootStringIdx = shapeType === 'E' ? 0 : 1;
-      const R = ((rootPC - STRING_PC[rootStringIdx]) % 12 + 12) % 12;
-      const chordTones = new Set(intervals.map(iv => (rootPC + iv) % 12));
-      const frets = new Array(6).fill(null);
-      frets[rootStringIdx] = R;
-      for (let s=0; s<6; s++){
-        if (s === rootStringIdx) continue;
-        if (shapeType === 'A' && s === 0) continue;
-        let best = null;
-        for (let f=R; f<=R+span; f++){
-          const pc = (STRING_PC[s] + f) % 12;
-          if (chordTones.has(pc)) { best = f; break; }
-        }
-        frets[s] = best;
-      }
-      return {frets, baseFret:R, kind:'barre', label:shapeType === 'E' ? 'E-shape' : 'A-shape'};
-    }
+    let selectedRoot=null, selectedQuality=null, selectedBass=null;
+    const resultBody=document.getElementById('resultBody');
+    const currentChordLabel=document.getElementById('currentChordLabel');
+    const currentChordMeta=document.getElementById('currentChordMeta');
+    const modeLabel=document.getElementById('modeLabel');
+    const overlay=document.getElementById('overlay');
+    const pickerSheet=document.getElementById('pickerSheet');
+    const openPickerBtn=document.getElementById('openPickerBtn');
+    const fabOpenBtn=document.getElementById('fabOpenBtn');
+    const closePickerBtn=document.getElementById('closePickerBtn');
+    const resetBtnTop=document.getElementById('resetBtnTop');
+    const resetBtnSheet=document.getElementById('resetBtnSheet');
 
-    function possibleFretsForPCOnString(stringIdx, pc, maxFret = 12){
-      const out = [];
-      for (let f=0; f<=maxFret; f++) if ((STRING_PC[stringIdx] + f) % 12 === pc) out.push(f);
-      return out;
-    }
+    function isMobile(){ return window.matchMedia('(max-width: 640px)').matches; }
+    function openPicker(){ overlay.classList.add('open'); pickerSheet.classList.add('open'); pickerSheet.setAttribute('aria-hidden','false'); }
+    function closePicker(){ overlay.classList.remove('open'); pickerSheet.classList.remove('open'); pickerSheet.setAttribute('aria-hidden','true'); }
 
-    function chooseBestFretOnString(stringIdx, chordTones, requiredMissing, minF, maxF){
-      const candidates = [];
-      for (let f=minF; f<=maxF; f++){
-        const pc = (STRING_PC[stringIdx] + f) % 12;
-        if (chordTones.has(pc)) candidates.push({f, pc});
-      }
-      if (!candidates.length) return null;
-      const preferred = candidates.find(c => requiredMissing.has(c.pc));
-      if (preferred) return preferred.f;
-      return candidates[0].f;
-    }
-
-    function generateSlashVoicings(rootPC, intervals, bassPC){
-      const chordTones = new Set(intervals.map(iv => (rootPC + iv) % 12));
-      const requiredPCs = [...chordTones];
-      const results = [];
-      const seen = new Set();
-      const bassStrings = [0,1,2];
-      for (const bassStringIdx of bassStrings){
-        const bassFrets = possibleFretsForPCOnString(bassStringIdx, bassPC, 12);
-        for (const bassFret of bassFrets){
-          const frets = new Array(6).fill(null);
-          for (let s=0; s<bassStringIdx; s++) frets[s] = null;
-          frets[bassStringIdx] = bassFret;
-          const baseFret = bassFret === 0 ? 0 : bassFret;
-          const minF = bassFret === 0 ? 0 : bassFret;
-          const maxF = bassFret === 0 ? 4 : bassFret + 4;
-          const present = new Set([bassPC]);
-          for (let s=bassStringIdx+1; s<6; s++){
-            const missing = new Set(requiredPCs.filter(pc => !present.has(pc)));
-            const chosen = chooseBestFretOnString(s, chordTones, missing, minF, maxF);
-            frets[s] = chosen;
-            if (chosen !== null) present.add((STRING_PC[s] + chosen) % 12);
-          }
-          const shape = { frets, baseFret, kind:'slash', label:'Slash Voicing', bassStringIdx };
-          const lowest = getLowestSoundingPC(shape);
-          if (lowest !== bassPC) continue;
-          if (!hasChordTones(shape, requiredPCs, intervals.length >= 4 ? 4 : 3)) continue;
-          const key = uniqueKeyFromFrets(frets);
-          if (!seen.has(key)) { seen.add(key); results.push(shape); }
-        }
-      }
-      return results;
-    }
-
-    function findNamedOpenSlash(rootPC, qualityKey, bassPC){
-      const rootName = NOTE_NAMES[rootPC];
-      const bassName = NOTE_NAMES[bassPC];
-      const qualityWord = qualityKey === 'maj' ? 'maj' : qualityKey === 'min' ? 'min' : qualityKey;
-      const key = `${rootName}_${qualityWord}_slash_${bassName}`;
-      return OPEN_CHORDS[key] || null;
-    }
-
-    function getShapesFor(rootPC, qualityKey, bassPC = null){
-      const q = QUALITY_BY_KEY[qualityKey];
-      const shapes = [];
-      const openKey = chordKey(rootPC, qualityKey === 'maj' ? 'maj' : qualityKey);
-      if (bassPC === null && OPEN_CHORDS[openKey]) shapes.push({ label:'Open', frets:OPEN_CHORDS[openKey], baseFret:0, kind:'open' });
-      if (bassPC !== null){
-        const slashOpen = findNamedOpenSlash(rootPC, qualityKey, bassPC);
-        if (slashOpen) shapes.push({ label:'Slash Open', frets:slashOpen, baseFret:0, kind:'slash-open' });
-      }
-      const eShape = buildBarreShape(rootPC, q.intervals, 'E');
-      const aShape = buildBarreShape(rootPC, q.intervals, 'A');
-      [eShape, aShape].forEach(shape => {
-        const lowest = getLowestSoundingPC(shape);
-        if (bassPC === null || lowest === bassPC){
-          shapes.push({
-            ...shape,
-            label: shape.label === 'E-shape'
-              ? (shape.baseFret === 0 ? 'Open / E' : 'E-form')
-              : (shape.baseFret === 0 ? 'Open / A' : 'A-form')
-          });
-        }
-      });
-      if (bassPC !== null){
-        const slashGenerated = generateSlashVoicings(rootPC, q.intervals, bassPC);
-        slashGenerated.forEach(s => shapes.push({ ...s, label: s.baseFret === 0 ? 'Slash Open' : 'Slash' }));
-      }
-      const filtered = bassPC === null ? shapes : shapes.filter(s => getLowestSoundingPC(s) === bassPC);
-      const deduped = [];
-      const seen = new Set();
-      for (const s of filtered){
-        const key = uniqueKeyFromFrets(s.frets);
-        if (!seen.has(key)) { seen.add(key); deduped.push(s); }
-      }
-      deduped.sort((a, b) => {
-        const aMuted = a.frets.filter(v => v === null).length;
-        const bMuted = b.frets.filter(v => v === null).length;
-        if (a.baseFret !== b.baseFret) return a.baseFret - b.baseFret;
-        return aMuted - bMuted;
-      });
-      return deduped.slice(0, 12);
-    }
-
-    function renderDiagramSVG(shape){
-      const W = 150, H = 184;
-      const left = 22, right = W - 16, top = 34, bottom = H - 18;
-      const nStrings = 6, nFrets = 5;
-      const stepX = (right - left) / (nStrings - 1);
-      const stepY = (bottom - top) / nFrets;
-      const baseFret = shape.baseFret || 0;
-      const showNut = baseFret === 0;
-      const gradId1 = 'boardGrad_' + Math.random().toString(36).slice(2, 10);
-      const gradId2 = 'markGrad_' + Math.random().toString(36).slice(2, 10);
-      let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">`;
-      svg += `
-        <defs>
-          <linearGradient id="${gradId1}" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#131d2d"/>
-            <stop offset="100%" stop-color="#0b1017"/>
-          </linearGradient>
-          <linearGradient id="${gradId2}" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#7cf5ff"/>
-            <stop offset="100%" stop-color="#4ef1c0"/>
-          </linearGradient>
-        </defs>`;
-      svg += `<rect x="${left-8}" y="${top-4}" width="${right-left+16}" height="${bottom-top+8}" rx="10" fill="url(#${gradId1})" stroke="rgba(255,255,255,0.08)"/>`;
-      const dotFrets = [3,5,7,9,12];
-      for (let i=1; i<=nFrets; i++){
-        const actualFret = baseFret === 0 ? i : baseFret + i - 1;
-        if (dotFrets.includes(actualFret)){
-          const cy = top + stepY*(i-0.5);
-          svg += `<circle cx="${(left+right)/2}" cy="${cy}" r="2" fill="rgba(255,255,255,0.10)"/>`;
-        }
-      }
-      for (let i=0; i<=nFrets; i++){
-        const y = top + stepY*i;
-        const strokeW = (i === 0 && showNut) ? 4 : 1.15;
-        svg += `<line x1="${left}" y1="${y}" x2="${right}" y2="${y}" stroke="rgba(236,243,255,0.92)" stroke-width="${strokeW}" opacity="${i===0?1:0.85}"/>`;
-      }
-      for (let s=0; s<nStrings; s++){
-        const x = left + stepX*s;
-        svg += `<line x1="${x}" y1="${top}" x2="${x}" y2="${bottom}" stroke="rgba(236,243,255,0.82)" stroke-width="1.1"/>`;
-      }
-      if (!showNut) svg += `<text x="${left-8}" y="${top+stepY*0.75}" fill="#9db0ca" font-family="monospace" font-weight="600" font-size="9" text-anchor="end">${baseFret}f</text>`;
-      if (baseFret !== 0){
-        const stringsAtBase = shape.frets.map((f,i) => f === baseFret ? i : -1).filter(v => v >= 0);
-        if (stringsAtBase.length >= 2){
-          const x1 = left + stepX * Math.min(...stringsAtBase);
-          const x2 = left + stepX * Math.max(...stringsAtBase);
-          const cy = top + stepY * 0.5;
-          svg += `<rect x="${x1-6}" y="${cy-6}" width="${x2-x1+12}" height="12" rx="6" fill="rgba(124,140,255,0.58)" stroke="rgba(255,255,255,0.12)"/>`;
-        }
-      }
-      shape.frets.forEach((f, s) => {
-        const x = left + stepX*s;
-        if (f === null){
-          svg += `<text x="${x}" y="${top-10}" fill="#ff8ca3" font-family="monospace" font-size="10" font-weight="700" text-anchor="middle">×</text>`;
-          return;
-        }
-        if (showNut && f === 0){
-          svg += `<circle cx="${x}" cy="${top-9}" r="4.1" fill="none" stroke="rgba(236,243,255,0.95)" stroke-width="1.55"/>`;
-          return;
-        }
-        const rowIndex = showNut ? f : (f - baseFret + 1);
-        if (rowIndex < 1 || rowIndex > nFrets) return;
-        const cy = top + stepY*(rowIndex - 0.5);
-        svg += `<circle cx="${x}" cy="${cy}" r="5.8" fill="url(#${gradId2})" stroke="rgba(255,255,255,0.16)" stroke-width="1.0"/>`;
-      });
-      svg += `</svg>`;
-      return svg;
-    }
-
-    function parseShapeInfo(shape, bassPC){
-      const pcs = [...new Set(getPitchClassesInShape(shape))].map(pc => NOTE_NAMES[pc]).join(' / ');
-      const bassName = bassPC !== null ? NOTE_NAMES[bassPC] : NOTE_NAMES[getLowestSoundingPC(shape)];
-      return { fretText: shape.baseFret === 0 ? 'Open' : `${shape.baseFret}fr`, tones: pcs, bass: bassName };
-    }
-
-    let selectedRoot = null;
-    let selectedQuality = null;
-    let selectedBass = null;
-
-    const rootGrid = document.getElementById('rootGrid');
-    const qualityGrid = document.getElementById('qualityGrid');
-    const bassGrid = document.getElementById('bassGrid');
-    const resultBody = document.getElementById('resultBody');
-    const currentChordLabel = document.getElementById('currentChordLabel');
-    const currentChordMeta = document.getElementById('currentChordMeta');
-    const modeLabel = document.getElementById('modeLabel');
-
-    const overlay = document.getElementById('overlay');
-    const pickerSheet = document.getElementById('pickerSheet');
-    const openPickerBtn = document.getElementById('openPickerBtn');
-    const fabOpenBtn = document.getElementById('fabOpenBtn');
-    const closePickerBtn = document.getElementById('closePickerBtn');
-    const resetBtnTop = document.getElementById('resetBtnTop');
-    const resetBtnSheet = document.getElementById('resetBtnSheet');
-
-    function isMobile(){
-      return window.matchMedia('(max-width: 640px)').matches;
-    }
-
-    function openPicker(){
-      overlay.classList.add('open');
-      pickerSheet.classList.add('open');
-      pickerSheet.setAttribute('aria-hidden', 'false');
-    }
-    function closePicker(){
-      overlay.classList.remove('open');
-      pickerSheet.classList.remove('open');
-      pickerSheet.setAttribute('aria-hidden', 'true');
-    }
+    function selectorMarkup(prefix, includeClose){ return `<div class="sheet-head"><div class="sheet-title">Chord Selector</div>${includeClose?'<button class="sheet-close" id="closePickerBtnInner" type="button" aria-label="Close">×</button>':''}</div><div class="controls-scroll" id="controlsScroll${prefix}"><section class="section"><p class="section-label">Root</p><div class="note-grid" id="rootGrid${prefix}"></div></section><section class="section"><p class="section-label">Code Type</p><div class="quality-grid" id="qualityGrid${prefix}"></div></section><section class="section"><p class="section-label">Bass</p><div class="slash-row" id="bassGrid${prefix}"></div></section><div class="action-row"><button class="action-btn action-secondary" id="resetBtn${prefix}" type="button">Reset</button></div></div>`; }
+    document.getElementById('pickerSheet').innerHTML = selectorMarkup('', true);
+    document.getElementById('desktopSelector').innerHTML = selectorMarkup('Desktop', false);
+    const rootGrids=[document.getElementById('rootGrid'), document.getElementById('rootGridDesktop')];
+    const qualityGrids=[document.getElementById('qualityGrid'), document.getElementById('qualityGridDesktop')];
+    const bassGrids=[document.getElementById('bassGrid'), document.getElementById('bassGridDesktop')];
+    document.getElementById('closePickerBtnInner').addEventListener('click', closePicker);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+    document.getElementById('resetBtnDesktop').addEventListener('click', resetAll);
 
     function renderResults(){
-      if (selectedRoot === null || selectedQuality === null){
-        currentChordLabel.textContent = 'Select a chord';
-        currentChordMeta.textContent = 'Choose root, type, and optional bass note.';
-        modeLabel.textContent = 'Chord';
-        resultBody.innerHTML = `
-          <div class="empty">
-            <div>
-              <div class="orb"></div>
-              <h3>Ready</h3>
-              <p>Open the selector and choose a root and chord type.</p>
-            </div>
-          </div>`;
+      if(selectedRoot===null || selectedQuality===null){
+        currentChordLabel.textContent='Select a chord';
+        currentChordMeta.textContent='Choose root, type, and optional bass note.';
+        modeLabel.textContent='Chord';
+        resultBody.innerHTML='<div class="empty"><div><div class="orb"></div><h3>Ready</h3><p>Open the selector and choose a root and chord type.</p></div></div>';
         return;
       }
-
-      const q = QUALITY_BY_KEY[selectedQuality];
-      const main = `${NOTE_NAMES[selectedRoot]}${q.suffix}`;
-      currentChordLabel.innerHTML = selectedBass === null
-        ? main
-        : `${main}<span class="slash"> / ${NOTE_NAMES[selectedBass]}</span>`;
-      currentChordMeta.textContent = selectedBass === null
-        ? 'Showing available voicings.'
-        : `Showing voicings with bass note ${NOTE_NAMES[selectedBass]}.`;
-      modeLabel.textContent = selectedBass === null ? 'Chord' : 'Slash';
-
-      const shapes = getShapesFor(selectedRoot, selectedQuality, selectedBass);
-      if (!shapes.length){
-        resultBody.innerHTML = `
-          <div class="empty">
-            <div>
-              <div class="orb"></div>
-              <h3>No result</h3>
-              <p>Try another bass note or chord type.</p>
-            </div>
-          </div>`;
-        return;
-      }
-
-      resultBody.innerHTML = `
-        <h3 class="group-title">Voicings</h3>
-        <div class="diagram-grid">
-          ${shapes.map(shape => {
-            const info = parseShapeInfo(shape, selectedBass);
-            return `
-              <article class="diagram-card">
-                <div class="diagram-header">
-                  <div>
-                    <div class="diagram-title">${shape.label}</div>
-                    <div class="diagram-sub">Bass: ${info.bass}</div>
-                  </div>
-                  <div class="fret-pill">${info.fretText}</div>
-                </div>
-                <div class="diagram-svg-wrap">${renderDiagramSVG(shape)}</div>
-                <div class="voicing-meta"><span class="meta-pill">${info.tones}</span></div>
-              </article>`;
-          }).join('')}
-        </div>`;
+      const q=QUALITY_BY_KEY[selectedQuality];
+      const main=`${NOTE_NAMES[selectedRoot]}${q.suffix}`;
+      currentChordLabel.innerHTML=selectedBass===null?main:`${main}<span class="slash"> / ${NOTE_NAMES[selectedBass]}</span>`;
+      currentChordMeta.textContent=selectedBass===null?'Showing available voicings.':`Showing voicings with bass note ${NOTE_NAMES[selectedBass]}.`;
+      modeLabel.textContent=selectedBass===null?'Chord':'Slash';
+      const shapes=getShapesFor(selectedRoot, selectedQuality, selectedBass);
+      if(!shapes.length){ resultBody.innerHTML='<div class="empty"><div><div class="orb"></div><h3>No result</h3><p>Try another bass note or chord type.</p></div></div>'; return; }
+      resultBody.innerHTML=`<h3 class="group-title">Voicings</h3><div class="diagram-grid">${shapes.map(shape=>{ const info=parseShapeInfo(shape, selectedBass); return `<article class="diagram-card"><div class="diagram-header"><div><div class="diagram-title">${shape.label}</div><div class="diagram-sub">Bass: ${info.bass}</div></div><div class="fret-pill">${info.fretText}</div></div><div class="diagram-svg-wrap">${renderDiagramSVG(shape)}</div><div class="voicing-meta"><span class="meta-pill">${info.tones}</span></div></article>`; }).join('')}</div>`;
     }
-
-    function setRoot(pc){
-      selectedRoot = pc;
-      [...rootGrid.children].forEach((c, i) => {
-        const on = i === pc;
-        c.classList.toggle('selected', on);
-        c.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      renderResults();
-    }
-    function setQuality(key){
-      selectedQuality = key;
-      [...qualityGrid.children].forEach((c, i) => {
-        const on = QUALITIES[i].key === key;
-        c.classList.toggle('selected', on);
-        c.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      renderResults();
-    }
-    function setBass(pcOrNull){
-      selectedBass = pcOrNull;
-      [...bassGrid.children].forEach(btn => {
-        const val = btn.dataset.bass;
-        const on = (pcOrNull === null && val === 'none') || (pcOrNull !== null && val === String(pcOrNull));
-        btn.classList.toggle('selected', on);
-      });
-      renderResults();
-    }
-
-    function createRootButtons(){
-      NOTE_NAMES.forEach((n, pc) => {
-        const btn = document.createElement('button');
-        btn.className = 'note-btn';
-        btn.textContent = n;
-        btn.setAttribute('aria-pressed', 'false');
-        btn.type = 'button';
-        btn.addEventListener('click', () => setRoot(pc));
-        rootGrid.appendChild(btn);
-      });
-    }
-    function createQualityButtons(){
-      QUALITIES.forEach((q) => {
-        const btn = document.createElement('button');
-        btn.className = 'chip';
-        btn.textContent = q.label;
-        btn.setAttribute('aria-pressed', 'false');
-        btn.type = 'button';
-        btn.addEventListener('click', () => setQuality(q.key));
-        qualityGrid.appendChild(btn);
-      });
-    }
-    function createBassButtons(){
-      const noneBtn = document.createElement('button');
-      noneBtn.className = 'mini-chip selected';
-      noneBtn.textContent = 'None';
-      noneBtn.dataset.bass = 'none';
-      noneBtn.type = 'button';
-      noneBtn.addEventListener('click', () => setBass(null));
-      bassGrid.appendChild(noneBtn);
-      NOTE_NAMES.forEach((n, pc) => {
-        const btn = document.createElement('button');
-        btn.className = 'mini-chip';
-        btn.textContent = n;
-        btn.dataset.bass = String(pc);
-        btn.type = 'button';
-        btn.addEventListener('click', () => setBass(pc));
-        bassGrid.appendChild(btn);
-      });
-    }
-
-    function resetAll(){
-      selectedRoot = null;
-      selectedQuality = null;
-      selectedBass = null;
-      [...rootGrid.children].forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
-      [...qualityGrid.children].forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
-      [...bassGrid.children].forEach(btn => { btn.classList.toggle('selected', btn.dataset.bass === 'none'); });
-      renderResults();
-      resultBody.scrollTop = 0;
-      document.getElementById('controlsScroll').scrollTop = 0;
-    }
-
-    openPickerBtn.addEventListener('click', openPicker);
-    fabOpenBtn.addEventListener('click', openPicker);
-    closePickerBtn.addEventListener('click', closePicker);
-    overlay.addEventListener('click', closePicker);
-    resetBtnTop.addEventListener('click', resetAll);
-    resetBtnSheet.addEventListener('click', resetAll);
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closePicker();
-    });
-
-    function syncUiVisibility(){
-      if (!isMobile()){
-        // desktopでも呼び出し式にするが、FABは不要
-        fabOpenBtn.style.display = 'none';
-      } else {
-        fabOpenBtn.style.display = 'block';
-      }
-    }
+    function setRoot(pc){ selectedRoot=pc; rootGrids.forEach(grid=>[...grid.children].forEach((c,i)=>{ const on=i===pc; c.classList.toggle('selected',on); c.setAttribute('aria-pressed', on?'true':'false'); })); renderResults(); }
+    function setQuality(key){ selectedQuality=key; qualityGrids.forEach(grid=>[...grid.children].forEach((c,i)=>{ const on=QUALITIES[i].key===key; c.classList.toggle('selected', on); c.setAttribute('aria-pressed', on?'true':'false'); })); renderResults(); }
+    function setBass(pcOrNull){ selectedBass=pcOrNull; bassGrids.forEach(grid=>[...grid.children].forEach(btn=>{ const val=btn.dataset.bass; const on=(pcOrNull===null&&val==='none') || (pcOrNull!==null&&val===String(pcOrNull)); btn.classList.toggle('selected', on); })); renderResults(); }
+    function createButtons(){ NOTE_NAMES.forEach((n,pc)=>{ rootGrids.forEach(target=>{ const btn=document.createElement('button'); btn.className='note-btn'; btn.textContent=n; btn.setAttribute('aria-pressed','false'); btn.type='button'; btn.addEventListener('click', ()=>setRoot(pc)); target.appendChild(btn); }); }); QUALITIES.forEach(q=>{ qualityGrids.forEach(target=>{ const btn=document.createElement('button'); btn.className='chip'; btn.textContent=q.label; btn.setAttribute('aria-pressed','false'); btn.type='button'; btn.addEventListener('click', ()=>setQuality(q.key)); target.appendChild(btn); }); }); bassGrids.forEach(target=>{ const noneBtn=document.createElement('button'); noneBtn.className='mini-chip selected'; noneBtn.textContent='None'; noneBtn.dataset.bass='none'; noneBtn.type='button'; noneBtn.addEventListener('click', ()=>setBass(null)); target.appendChild(noneBtn); NOTE_NAMES.forEach((n,pc)=>{ const btn=document.createElement('button'); btn.className='mini-chip'; btn.textContent=n; btn.dataset.bass=String(pc); btn.type='button'; btn.addEventListener('click', ()=>setBass(pc)); target.appendChild(btn); }); }); }
+    function resetAll(){ selectedRoot=null; selectedQuality=null; selectedBass=null; rootGrids.forEach(grid=>[...grid.children].forEach(c=>{ c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); })); qualityGrids.forEach(grid=>[...grid.children].forEach(c=>{ c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); })); bassGrids.forEach(grid=>[...grid.children].forEach(btn=>btn.classList.toggle('selected', btn.dataset.bass==='none'))); renderResults(); resultBody.scrollTop=0; document.getElementById('controlsScroll').scrollTop=0; document.getElementById('controlsScrollDesktop').scrollTop=0; }
+    openPickerBtn.addEventListener('click', openPicker); fabOpenBtn.addEventListener('click', openPicker); closePickerBtn.addEventListener('click', closePicker); overlay.addEventListener('click', closePicker); resetBtnTop.addEventListener('click', resetAll);
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePicker(); });
+    function syncUiVisibility(){ if(!isMobile()){ fabOpenBtn.style.display='none'; document.body.classList.add('desktop-open'); closePicker(); } else { fabOpenBtn.style.display='block'; document.body.classList.remove('desktop-open'); } }
     window.addEventListener('resize', syncUiVisibility);
-
-    createRootButtons();
-    createQualityButtons();
-    createBassButtons();
-    syncUiVisibility();
-    renderResults();
+    createButtons(); syncUiVisibility(); renderResults();
   </script>
 </body>
 </html>
