@@ -271,12 +271,16 @@
     .result-panel{
       min-height:560px;
       overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-width:0;
     }
 
     .summary{
       padding:16px 16px 14px;
       border-bottom:1px solid var(--line);
       background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      flex:0 0 auto;
     }
 
     .summary-top{
@@ -327,6 +331,11 @@
 
     .result-body{
       padding:14px;
+      flex:1 1 auto;
+      min-height:0;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      overscroll-behavior:contain;
     }
 
     .group-title{
@@ -339,7 +348,7 @@
       text-transform:uppercase;
     }
 
-    /* ===== 修正済み：PCは基本3列 ===== */
+    /* PCでは3列固定ベース */
     .diagram-grid{
       display:grid;
       grid-template-columns:repeat(3, minmax(0, 1fr));
@@ -347,14 +356,12 @@
       align-items:stretch;
     }
 
-    /* ===== 修正済み：カード高さを安定化 ===== */
     .diagram-card{
       background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.018));
       border:1px solid var(--line);
       border-radius:16px;
       padding:12px;
       box-shadow:var(--shadow-soft);
-
       display:flex;
       flex-direction:column;
       min-width:0;
@@ -397,7 +404,6 @@
       font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
-    /* ===== 修正済み：SVG専用領域で上下崩れ防止 ===== */
     .diagram-svg-wrap{
       width:100%;
       min-height:170px;
@@ -416,7 +422,6 @@
       flex:0 0 auto;
     }
 
-    /* ===== 修正済み：メタ情報をカード下に揃える ===== */
     .voicing-meta{
       display:flex;
       flex-wrap:wrap;
@@ -478,7 +483,7 @@
       padding:4px 10px;
     }
 
-    /* 中間幅では2列 */
+    /* タブレット */
     @media (max-width: 900px){
       .layout{
         grid-template-columns:1fr;
@@ -496,25 +501,152 @@
       }
     }
 
-    /* iPhoneでは1列 */
+    /* スマホ：上下分割 + 独立スクロール */
     @media (max-width: 640px){
-      .wrap{
-        padding:12px 10px 28px;
+      html, body{
+        height:100%;
       }
-      .panel-inner,.result-body{
+
+      body{
+        overflow:hidden;
+      }
+
+      .wrap{
+        max-width:none;
+        height:100dvh;
+        padding:8px;
+        display:grid;
+        grid-template-rows:auto minmax(0, 1fr);
+        gap:8px;
+      }
+
+      .hero{
+        padding:2px 2px 0;
+      }
+
+      .hero h1{
+        font-size:26px;
+      }
+
+      .hero p{
+        display:none;
+      }
+
+      .layout{
+        margin-top:0;
+        height:100%;
+        display:grid;
+        grid-template-columns:1fr;
+        grid-template-rows:minmax(180px, 34dvh) minmax(0, 1fr);
+        gap:8px;
+        min-height:0;
+      }
+
+      /* 上：表示エリア */
+      .result-panel{
+        order:1;
+        min-height:0;
+        height:100%;
+        overflow:hidden;
+      }
+
+      .summary{
+        padding:12px 12px 10px;
+      }
+
+      .summary h2{
+        font-size:22px;
+      }
+
+      .summary .meta{
+        font-size:12px;
+        margin-top:6px;
+      }
+
+      .badge{
+        font-size:10px;
+        padding:6px 8px;
+      }
+
+      /* 上エリア内部だけスクロール */
+      .result-body{
+        padding:10px;
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+        overscroll-behavior:contain;
+      }
+
+      /* 下：選択エリア */
+      .controls{
+        order:2;
+        position:relative;
+        top:0;
+        min-height:0;
+        height:100%;
+        overflow:auto;
+        -webkit-overflow-scrolling:touch;
+        overscroll-behavior:contain;
+      }
+
+      .panel-inner{
         padding:12px;
       }
-      .summary{
-        padding:14px 12px 12px;
+
+      .section{
+        margin-bottom:12px;
       }
+
+      .section-label{
+        margin-bottom:8px;
+      }
+
+      .note-grid,
+      .slash-row{
+        grid-template-columns:repeat(4, 1fr);
+        gap:8px;
+      }
+
       .quality-grid{
         grid-template-columns:repeat(2, 1fr);
+        gap:8px;
       }
+
+      .note-btn,
+      .chip{
+        min-height:40px;
+      }
+
+      .mini-chip{
+        min-height:38px;
+      }
+
+      /* スマホの上表示エリアは1列 */
       .diagram-grid{
         grid-template-columns:1fr;
+        gap:10px;
       }
-      .hero p{
-        font-size:12.5px;
+
+      .diagram-card{
+        min-height:unset;
+        padding:10px;
+      }
+
+      .diagram-svg-wrap{
+        min-height:146px;
+        margin-top:4px;
+      }
+
+      .diagram-svg-wrap svg{
+        max-width:148px;
+      }
+
+      .empty{
+        min-height:220px;
+        padding:16px;
+      }
+
+      footer{
+        display:none;
       }
     }
 
@@ -534,6 +666,7 @@
     </header>
 
     <main class="layout">
+      <!-- 下：選択エリア（スマホ時） -->
       <aside class="panel controls">
         <div class="panel-inner">
           <section class="section">
@@ -557,6 +690,7 @@
         </div>
       </aside>
 
+      <!-- 上：表示エリア（スマホ時） -->
       <section class="panel result-panel">
         <div class="summary">
           <div class="summary-top">
@@ -1137,7 +1271,8 @@
       });
 
       renderResults();
-      window.scrollTo({ top:0, behavior:'smooth' });
+      resultBody.scrollTop = 0;
+      document.querySelector('.controls').scrollTop = 0;
     }
 
     createRootButtons();
